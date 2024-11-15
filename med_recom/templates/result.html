@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Results for "{{ query }}"</h1>
+
+    {% if search_type == "name" %}
+        <h2>Suggestions for Medicine Name</h2>
+        {% if suggestions %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Composition</th>
+                        <th>Uses</th>
+                        <th>Side Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for suggestion in suggestions %}
+                        <tr>
+                            <td>{{ suggestion['Medicine Name'] }}</td>
+                            <td>{{ suggestion['Composition'] }}</td>
+                            <td>{{ suggestion['Uses'] }}</td>
+                            <td>{{ suggestion['Side_effects'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No suggestions found for "{{ query }}"</p>
+        {% endif %}
+
+        <!-- Display Alternative Medicines Based on Selection -->
+        {% if recommendations %}
+            <h2>Alternative Medicines Based on "{{ suggestions[0]['Medicine Name'] }}"</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Composition</th>
+                        <th>Uses</th>
+                        <th>Side Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recommendation in recommendations %}
+                        <tr>
+                            <td>{{ recommendation['Medicine Name'] }}</td>
+                            <td>{{ recommendation['Composition'] }}</td>
+                            <td>{{ recommendation['Uses'] }}</td>
+                            <td>{{ recommendation['Side_effects'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No alternative medicines found for "{{ suggestions[0]['Medicine Name'] }}"</p>
+        {% endif %}
+    
+    {% elif search_type == "recommend" or search_type == "condition" %}
+        <h2>Recommended Medicines for "{{ query }}"</h2>
+        {% if recommendations %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Composition</th>
+                        <th>Uses</th>
+                        <th>Side Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recommendation in recommendations %}
+                        <tr>
+                            <td>{{ recommendation['Medicine Name'] }}</td>
+                            <td>{{ recommendation['Composition'] }}</td>
+                            <td>{{ recommendation['Uses'] }}</td>
+                            <td>{{ recommendation['Side_effects'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No recommendations found for "{{ query }}"</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

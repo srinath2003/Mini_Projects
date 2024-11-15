@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Medicine Recommendation System</h1>
+
+    <!-- Autocomplete form for medicine name suggestions -->
+    <form action="/suggest" method="post">
+        <label for="medicine_name">Enter Medicine Name:</label>
+        <input type="text" name="medicine_name" id="medicine_name" autocomplete="off" required>
+        <div id="suggestions" class="suggestions-box"></div>
+        <button type="submit">Suggest Alternatives</button>
+    </form>
+    
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- Form for recommending medicines by condition -->
+    <form action="/recommend_by_use" method="post">
+        <label for="condition">Enter Condition or Symptom:</label>
+        <input type="text" name="condition" id="condition" required>
+        <button type="submit">Recommend by Condition</button>
+    </form>
+</body>
+</html>
