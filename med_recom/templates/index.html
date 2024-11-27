@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Recommendation System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Medicine Recommendation System'</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Home.css') }}">
 </head>
 <body>
-    <h1>Medicine Recommendation System</h1>
+    <h1 style="color:aqua;font-family:monospace;font-size: 80px;">Medicine Recommendation System</h1>
 
     <!-- Autocomplete form for medicine name suggestions -->
     <form action="/suggest" method="post">
-        <label for="medicine_name">Enter Medicine Name:</label>
+        <label for="medicine_name"style="color:white;">Enter Medicine Name:</label>
         <input type="text" name="medicine_name" id="medicine_name" autocomplete="off" required>
         <div id="suggestions" class="suggestions-box"></div>
         <button type="submit">Suggest Alternatives</button>
@@ -22,7 +22,7 @@
 
     <!-- Form for recommending medicines by condition -->
     <form action="/recommend_by_use" method="post">
-        <label for="condition">Enter Condition or Symptom:</label>
+        <label for="condition" style="color:white;">Enter Condition or Symptom:</label>
         <input type="text" name="condition" id="condition" required>
         <button type="submit">Recommend by Condition</button>
     </form>
