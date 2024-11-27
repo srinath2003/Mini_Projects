@@ -74,7 +74,7 @@ button {
 
 button:hover {
     background-color: #00ced1; /* Aqua */
-    transform: scale(1.1); /* Slight enlargement */
+    transform: scale(1.03); /* Slight enlargement */
     box-shadow: 0px 0px 10px 1px rgba(0, 206, 209, 0.3);
 }
 
