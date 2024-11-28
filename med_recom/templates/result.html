@@ -7,88 +7,108 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Results for "{{ query }}"</h1>
-
-    {% if search_type == "name" %}
-        <h2>Suggestions for Medicine Name</h2>
-        {% if suggestions %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Medicine Name</th>
-                        <th>Composition</th>
-                        <th>Uses</th>
-                        <th>Side Effects</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for suggestion in suggestions %}
-                        <tr>
-                            <td>{{ suggestion['Medicine Name'] }}</td>
-                            <td>{{ suggestion['Composition'] }}</td>
-                            <td>{{ suggestion['Uses'] }}</td>
-                            <td>{{ suggestion['Side_effects'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No suggestions found for "{{ query }}"</p>
-        {% endif %}
-
-        <!-- Display Alternative Medicines Based on Selection -->
-        {% if recommendations %}
-            <h2>Alternative Medicines Based on "{{ suggestions[0]['Medicine Name'] }}"</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Medicine Name</th>
-                        <th>Composition</th>
-                        <th>Uses</th>
-                        <th>Side Effects</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recommendation in recommendations %}
-                        <tr>
-                            <td>{{ recommendation['Medicine Name'] }}</td>
-                            <td>{{ recommendation['Composition'] }}</td>
-                            <td>{{ recommendation['Uses'] }}</td>
-                            <td>{{ recommendation['Side_effects'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No alternative medicines found for "{{ suggestions[0]['Medicine Name'] }}"</p>
-        {% endif %}
+    <header>
+        <h1>Search Results for "{{ query }}"</h1>
+    </header>
     
-    {% elif search_type == "recommend" or search_type == "condition" %}
-        <h2>Recommended Medicines for "{{ query }}"</h2>
-        {% if recommendations %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Medicine Name</th>
-                        <th>Composition</th>
-                        <th>Uses</th>
-                        <th>Side Effects</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recommendation in recommendations %}
-                        <tr>
-                            <td>{{ recommendation['Medicine Name'] }}</td>
-                            <td>{{ recommendation['Composition'] }}</td>
-                            <td>{{ recommendation['Uses'] }}</td>
-                            <td>{{ recommendation['Side_effects'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <main>
+        {% if error %}
+            <section>
+                <p class="error">{{ error }}</p>
+            </section>
         {% else %}
-            <p>No recommendations found for "{{ query }}"</p>
+            {% if search_type == "name" %}
+                <section>
+                    <h2>Medicine Suggestions</h2>
+                    {% if suggestions %}
+                        <table class="medicine-table" aria-label="Medicine Suggestions">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Composition</th>
+                                    <th>Uses</th>
+                                    <th>Side Effects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for suggestion in suggestions %}
+                                    <tr>
+                                        <td>{{ suggestion['Medicine Name'] }}</td>
+                                        <td>{{ suggestion['Composition'] }}</td>
+                                        <td>{{ suggestion['Uses'] }}</td>
+                                        <td>{{ suggestion['Side_effects'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="no-results">No suggestions found for "{{ query }}".</p>
+                    {% endif %}
+                </section>
+
+            {% elif search_type == "ocr" %}
+                <section>
+                    <h2>OCR-Based Suggestions</h2>
+                    {% if suggestions %}
+                        <table class="medicine-table" aria-label="OCR Medicine Suggestions">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Composition</th>
+                                    <th>Uses</th>
+                                    <th>Side Effects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for suggestion in suggestions %}
+                                    <tr>
+                                        <td>{{ suggestion['Medicine Name'] }}</td>
+                                        <td>{{ suggestion['Composition'] }}</td>
+                                        <td>{{ suggestion['Uses'] }}</td>
+                                        <td>{{ suggestion['Side_effects'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="no-results">No suggestions found for the extracted text "{{ query }}".</p>
+                    {% endif %}
+                </section>
+
+            {% elif search_type in ["recommend", "condition"] %}
+                <section>
+                    <h2>Recommended Medicines for "{{ query }}"</h2>
+                    {% if recommendations %}
+                        <table class="medicine-table" aria-label="Recommended Medicines">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Composition</th>
+                                    <th>Uses</th>
+                                    <th>Side Effects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for recommendation in recommendations %}
+                                    <tr>
+                                        <td>{{ recommendation['Medicine Name'] }}</td>
+                                        <td>{{ recommendation['Composition'] }}</td>
+                                        <td>{{ recommendation['Uses'] }}</td>
+                                        <td>{{ recommendation['Side_effects'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="no-results">No recommendations found for "{{ query }}".</p>
+                    {% endif %}
+                </section>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} Medicine Recommendation System</p>
+    </footer>
 </body>
 </html>

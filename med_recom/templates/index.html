@@ -25,5 +25,11 @@
         <input type="text" name="condition" id="condition" required>
         <button type="submit">Recommend by Condition</button>
     </form>
+
+    <h2>Upload Image for OCR</h2>
+    <form action="/ocr_extract" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Upload and Extract</button>
+    </form>
 </body>
 </html>
