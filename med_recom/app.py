@@ -128,6 +128,8 @@ def suggest():
         recommendations = recommend_medicines(first_suggestion)
     else:
         recommendations = []
+    print(suggestion_details,"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
+    print("ooooooooooooooooo",recommendations)
 
     return render_template('result.html', suggestions=suggestion_details, recommendations=recommendations, search_type="name", query=partial_name)
 

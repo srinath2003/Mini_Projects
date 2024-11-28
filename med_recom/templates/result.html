@@ -41,9 +41,33 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+            
                     {% else %}
                         <p class="no-results">No suggestions found for "{{ query }}".</p>
                     {% endif %}
+                    <h2>Recommended Medicines for "{{ query }}"</h2>
+                    {% if recommendations %}
+                        <table class="medicine-table" aria-label="Recommended Medicines">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Composition</th>
+                                    <th>Uses</th>
+                                    <th>Side Effects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for recommendation in recommendations %}
+                                    <tr>
+                                        <td>{{ recommendation['Medicine Name'] }}</td>
+                                        <td>{{ recommendation['Composition'] }}</td>
+                                        <td>{{ recommendation['Uses'] }}</td>
+                                        <td>{{ recommendation['Side_effects'] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
                 </section>
 
             {% elif search_type == "ocr" %}

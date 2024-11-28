@@ -9,6 +9,8 @@
 <body>
     <h1 style="color:aqua;font-family:monospace;font-size: 80px;">Medicine Recommendation System</h1>
 
+    
+    <!-- Form for recommending alternative medicines   -->
     <form action="/suggest" method="post">
         <label for="medicine_name"style="color:white;">Enter Medicine Name:</label>
         <input type="text" name="medicine_name" id="medicine_name" autocomplete="off" required>
@@ -25,6 +27,9 @@
         <input type="text" name="condition" id="condition" required>
         <button type="submit">Recommend by Condition</button>
     </form>
+
+    
+    <!-- Form for recommending medicines by OCR -->
 
     <h2>Upload Image for OCR</h2>
     <form action="/ocr_extract" method="POST" enctype="multipart/form-data">
