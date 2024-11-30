@@ -75,7 +75,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Author
 - **Name**: Srinath R
 - **Email**: srinathranganathan432@gmail.com
-- **GitHub**: [GitHub Link](https://github.com/srinath2003/)
-- **LinkedIn**: [LinkedIn Link](https://www.linkedin.com/in/srinath2003/)
-- **Medium**: [Medium Link](https://medium.com/@srinath2003)
+- **GitHub**: [srinath2003](https://github.com/srinath2003/)
+- **LinkedIn**: [srinath2003](https://www.linkedin.com/in/srinath2003/)
+- **Medium**: [srinath2003](https://medium.com/@srinath2003)
 
