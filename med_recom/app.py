@@ -1,3 +1,6 @@
+import cv2
+import pytesseract
+import numpy as np
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import difflib
@@ -7,7 +10,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = Flask(__name__)
 
 # Load and preprocess data
-df = pd.read_csv("data/data.csv")
+df = pd.read_csv("data/med_data")
+
 
 # Generate TF-IDF matrix for similarity calculations
 tfidf = TfidfVectorizer(stop_words='english')
@@ -74,6 +78,28 @@ def recommend_medicines(medicine_name):
         })
 
     return recommendations
+def suggest_medicine_for_ocr(extracted_text):
+    try:
+        # Extract all entries from the matching column
+        matching_entries = df['col_for_ocr'].fillna('').tolist()
+        
+        # Calculate similarity scores
+        scores = difflib.get_close_matches(extracted_text, matching_entries, n=5, cutoff=0.5)
+        
+        if not scores:
+            return {"error": "No matching medicines found for the extracted text."}
+
+        # Find the indices of the top matches
+        matches = df[df['col_for_ocr'].isin(scores)]
+
+        # Convert matching entries to a list of dictionaries
+        recommendations = matches[['Medicine Name', 'Composition', 'Uses', 'Side_effects']].to_dict(orient='records')
+        
+        return recommendations
+
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
+
 
 @app.route('/')
 def index():
@@ -102,6 +128,8 @@ def suggest():
         recommendations = recommend_medicines(first_suggestion)
     else:
         recommendations = []
+    # print(suggestion_details,"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
+    # print("ooooooooooooooooo",recommendations)
 
     return render_template('result.html', suggestions=suggestion_details, recommendations=recommendations, search_type="name", query=partial_name)
 
@@ -129,5 +157,48 @@ def recommend_by_use():
     return render_template('result.html', recommendations=recommendations, search_type="condition", query=condition)
 
 
+# Set the path for Tesseract executable
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# OCR Extraction Route
+@app.route('/ocr_extract', methods=['POST'])
+def ocr_extract():
+    if 'file' not in request.files:
+        return render_template('result.html', error="No file uploaded", search_type="ocr", query="")
+
+    file = request.files['file']
+    if file.filename == '':
+        return render_template('result.html', error="No file selected", search_type="ocr", query="")
+
+    try:
+        # Read the uploaded image
+        img = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
+
+        # Extract text using Tesseract
+        extracted_text = pytesseract.image_to_string(img).strip().lower()
+
+        if not extracted_text:
+            return render_template('result.html', error="No text found in the image", search_type="ocr", query="")
+
+        # Suggest medicines based on extracted text
+        suggestions = suggest_medicine_for_ocr(extracted_text)
+    
+        if isinstance(suggestions, dict) and "error" in suggestions:
+            return render_template('result.html', error=suggestions["error"], search_type="ocr", query=extracted_text)
+
+        # Render the result template with suggestions
+        return render_template(
+            'result.html',
+            query=extracted_text,
+            search_type="ocr",
+            suggestions=suggestions
+        )
+
+    except Exception as e:
+        return render_template('result.html', error=f"An error occurred: {str(e)}", search_type="ocr", query="")
+
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)

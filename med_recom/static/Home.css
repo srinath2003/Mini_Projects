@@ -65,7 +65,7 @@ button {
     padding: 10px;
     font-size: 1rem;
     color: #fff;
-    background-color: #555; /* Dark gray button */
+    background-color: #444; /* Dark gray button */
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -84,7 +84,7 @@ button:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #444; /* Dark gray suggestions box */
+    background-color: #555; /* Dark gray suggestions box */
     display: none; /* Hidden by default */
     color: #fff;
 }
