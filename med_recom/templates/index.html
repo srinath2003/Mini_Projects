@@ -30,10 +30,9 @@
 
     
     <!-- Form for recommending medicines by OCR -->
-
     <h2>Upload Image for OCR</h2>
     <form action="/ocr_extract" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
+        <input type="file" name="file" accept="image/*" capture="camera">
         <button type="submit">Upload and Extract</button>
     </form>
 </body>

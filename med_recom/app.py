@@ -84,7 +84,7 @@ def suggest_medicine_for_ocr(extracted_text):
         matching_entries = df['col_for_ocr'].fillna('').tolist()
         
         # Calculate similarity scores
-        scores = difflib.get_close_matches(extracted_text, matching_entries, n=5, cutoff=0.2)
+        scores = difflib.get_close_matches(extracted_text, matching_entries, n=5, cutoff=0.5)
         
         if not scores:
             return {"error": "No matching medicines found for the extracted text."}
@@ -128,8 +128,8 @@ def suggest():
         recommendations = recommend_medicines(first_suggestion)
     else:
         recommendations = []
-    print(suggestion_details,"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
-    print("ooooooooooooooooo",recommendations)
+    # print(suggestion_details,"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
+    # print("ooooooooooooooooo",recommendations)
 
     return render_template('result.html', suggestions=suggestion_details, recommendations=recommendations, search_type="name", query=partial_name)
 
@@ -198,5 +198,7 @@ def ocr_extract():
         return render_template('result.html', error=f"An error occurred: {str(e)}", search_type="ocr", query="")
 
 
+# if __name__ == '__main__':
+#     app.run(debug=True)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
