@@ -23,12 +23,12 @@ Ensure you have Python installed. The recommended version is 3.6 or higher.
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/your-username/medicine-recommendation-system.git
+    git clone https://github.com/srinath2003/Mini_Projects.git
     ```
 
 2. Navigate to the project folder:
     ```bash
-    cd medicine-recommendation-system
+    cd Mini_Projects
     ```
 
 3. Install the required dependencies:
@@ -73,8 +73,9 @@ Ensure you have Python installed. The recommended version is 3.6 or higher.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
-- **Name**: Your Name
-- **Email**: your-email@example.com
-- **GitHub**: [GitHub Link](https://github.com/your-username)
-- **LinkedIn**: [LinkedIn Link](https://www.linkedin.com/in/your-profile/)
+- **Name**: Srinath R
+- **Email**: srinathranganathan432@gmail.com
+- **GitHub**: [GitHub Link](https://github.com/srinath2003/)
+- **LinkedIn**: [LinkedIn Link](https://www.linkedin.com/in/srinath2003/)
+- **Medium**: [Medium Link](https://medium.com/@srinath2003)
 
