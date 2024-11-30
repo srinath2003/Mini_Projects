@@ -83,8 +83,7 @@ section h2 {
 .medicine-table tbody tr:hover {
     background-color: #ddd; /* Light gray highlight on hover */
     transition: background-color 0.3s;
-}
-
+} 
 footer {
     margin-top: auto;
     padding: 10px;
@@ -92,4 +91,39 @@ footer {
     color: #00ced1; /* Aqua */
     text-align: center;
     font-size: 0.9rem;
+    width: 100%; /* Ensures the footer spans the entire width */
+    position: relative; /* Ensures it stays at the bottom of the page */
+    box-sizing: border-box; /* Includes padding in the width calculation */
+}
+
+footer img {
+    height: 50px; /* Adjust logo size */
+    width: auto;
+    margin-bottom: 10px; /* Adds space between logo and text */
+}
+
+footer p {
+    margin: 5px 0; /* Reduces space around text */
+}
+
+footer .social-box {
+    display: inline-block;
+    background-color: #ff6347; /* White background for the box */
+    border: 2px solid black; /* Black border around the box */
+    border-radius: 5px; /* Rounded corners for the border */
+    padding: 5px 15px; /* Adds padding inside the box */
+    margin: 0 10px; /* Space between boxes */
+}
+
+footer .social-box a {
+    color: #ffffff; /* Aqua color for links */
+    text-decoration: none; /* Removes underline */
+    font-weight: bold; /* Makes the text bold */
+    display: inline-block; /* Makes the link fit inside the box */
+}
+
+footer .social-box a:hover {
+    background-color: #ff6347; /* Change background color on hover */
+    color: #000000; /* White text color on hover */
+    border-color: #ff6347; /* Change border color on hover */
 }
